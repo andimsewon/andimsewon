@@ -103,44 +103,4 @@ Knowledge-discovery and data-visualization workflows
 | **Cultural-Heritage Damage Inspection** | Applied computer vision with real operational use | DETR · OpenCV · Python |
 | **WaggleNet** | Field-deployed IoT monitoring under real constraints | LoRa · MQTT · Sensors · Data Systems |
 
----
 
-## GitHub Snapshot
-
-<div align="center">
-
-<img height="165" src="https://github-readme-stats.vercel.app/api?username=andimsewon&show_icons=true&theme=tokyonight&hide_border=true" />
-<img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=andimsewon&layout=compact&theme=tokyonight&hide_border=true" />
-
-</div>
-
----
-
-## A small terminal portrait
-
-```text
-------:::-:::+%@@@@@@@@@@@@@@%%@+:...:::::
-------::::::+%@@@@%@@@@@@@@@@@%@@%=...::::
-----:::::::=@@@@%#+%##@@@@%%%@@@@@@*....::
-::::::::::-%@@@@%++#**##@@@%@@@@@@@@%:....
-:::::::::.+@@@@@%++##=++*%%%%%%%@@@@@@-...
-::::::::::#@@@@@#***#+++**#%#**#**#*@@+...
-:::::::::-@@@@@@*###*#%+##+*+=+*++=*@@*:..
-:::::..::*@@@@@@*+++=*#==*++++++=*#@@@#:..
-...:::--=*%@@@@@#+++==*+=++======*@@@@@%+-
--======+**#@@@%#+++===+*++++++=++%@@@@@@@%
-==++****=+**#+==--==++**###*++++#@@@@@@@#=
-==++++==:-==-----***++**+++=+++++%@@@%%#++
------=====----=+#@@*++***#+++++++*%%=:==+:
-++++++++----+++++#*====-+%*==++++**= :-++-
-**+++++=--=+***+:-:::::-###*++++**+..-:++-
-=====*+-:=*****=:::.::.:+**+******::.--:+=
-=====++=-==***+-:.......=*+*+**-=+::::-::=
-----=+=--==+*+-::.......-*=-:::.++=.::--.:
-```
-
-<div align="center">
-
-**Building systems that make complex knowledge easier to discover, trust, and use.**
-
-</div>
