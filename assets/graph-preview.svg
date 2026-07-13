@@ -8,9 +8,9 @@
 <text x="66" y="203" fill="#93A6B7" font-family="Arial, Helvetica, sans-serif" font-size="24">search nodes, skills, systems...</text>
 <rect x="44" y="243" width="248" height="34" rx="17" fill="#EEF4F8" stroke="#D6E1EB"/>
 <text x="58" y="266" fill="#5B7284" font-family="Arial, Helvetica, sans-serif" font-size="18">Current role: FAO</text>
-<rect x="250" y="243" width="316" height="34" rx="17" fill="#EEF4F8" stroke="#D6E1EB"/>
+<rect x="250" y="243" width="318" height="34" rx="17" fill="#EEF4F8" stroke="#D6E1EB"/>
 <text x="264" y="266" fill="#5B7284" font-family="Arial, Helvetica, sans-serif" font-size="18">Core strength: Graph Visualization</text>
-<rect x="640" y="243" width="260" height="34" rx="17" fill="#EEF4F8" stroke="#D6E1EB"/>
+<rect x="640" y="243" width="250" height="34" rx="17" fill="#EEF4F8" stroke="#D6E1EB"/>
 <text x="654" y="266" fill="#5B7284" font-family="Arial, Helvetica, sans-serif" font-size="18">Interest: Applied AI</text>
 <rect x="44" y="292" width="860" height="360" rx="16" fill="#FCFEFF" stroke="#E1EAF2"/>
 <text x="66" y="325" fill="#5B7284" font-family="Arial, Helvetica, sans-serif" font-size="18">Explore related capabilities — selected nodes reveal linked experience and outputs</text>
@@ -45,13 +45,15 @@
 <circle cx="330" cy="215" r="38" fill="#7b63c6"/>
 <text x="330" y="219" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">KG-RAG</text>
 <text x="380" y="210" text-anchor="start" fill="#1D3447" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">KG-RAG</text>
-<text x="380" y="234" text-anchor="start" fill="#6E8495" font-family="Arial, Helvetica, sans-serif" font-size="16">retrieval & reasoning</text>
+<text x="380" y="234" text-anchor="start" fill="#6E8495" font-family="Arial, Helvetica, sans-serif" font-size="16">retrieval &amp; reasoning</text>
 <circle cx="860" cy="470" r="38" fill="#f0a244"/>
-<text x="860" y="474" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Graph Visualization</text>
+<text x="860" y="467" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Graph</text>
+<text x="860" y="484" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Visualization</text>
 <text x="910" y="465" text-anchor="start" fill="#1D3447" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Graph Visualization</text>
 <text x="910" y="489" text-anchor="start" fill="#6E8495" font-family="Arial, Helvetica, sans-serif" font-size="16">interactive knowledge discovery</text>
 <circle cx="350" cy="500" r="38" fill="#d85656"/>
-<text x="350" y="504" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Computer Vision</text>
+<text x="350" y="497" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Computer</text>
+<text x="350" y="514" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Vision</text>
 <text x="400" y="495" text-anchor="start" fill="#1D3447" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Computer Vision</text>
 <text x="400" y="519" text-anchor="start" fill="#6E8495" font-family="Arial, Helvetica, sans-serif" font-size="16">DETR inspection system</text>
 <circle cx="600" cy="595" r="34" fill="#57b37a"/>
@@ -59,15 +61,18 @@
 <text x="650" y="590" text-anchor="start" fill="#1D3447" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">WaggleNet</text>
 <text x="650" y="614" text-anchor="start" fill="#6E8495" font-family="Arial, Helvetica, sans-serif" font-size="16">IoT field deployment</text>
 <circle cx="1030" cy="350" r="34" fill="#e66c96"/>
-<text x="1030" y="354" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">UX Analytics</text>
+<text x="1030" y="347" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">UX</text>
+<text x="1030" y="364" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Analytics</text>
 <text x="1020" y="345" text-anchor="end" fill="#1D3447" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">UX Analytics</text>
-<text x="1020" y="369" text-anchor="end" fill="#6E8495" font-family="Arial, Helvetica, sans-serif" font-size="16">behavior flows & insight</text>
+<text x="1020" y="369" text-anchor="end" fill="#6E8495" font-family="Arial, Helvetica, sans-serif" font-size="16">behavior flows &amp; insight</text>
 <circle cx="220" cy="350" r="34" fill="#2aafc4"/>
-<text x="220" y="354" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Knowledge Graphs</text>
+<text x="220" y="347" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Knowledge</text>
+<text x="220" y="364" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Graphs</text>
 <text x="270" y="345" text-anchor="start" fill="#1D3447" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Knowledge Graphs</text>
 <text x="270" y="369" text-anchor="start" fill="#6E8495" font-family="Arial, Helvetica, sans-serif" font-size="16">semantic structure</text>
 <circle cx="730" cy="120" r="34" fill="#789c39"/>
-<text x="730" y="124" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">FAO Innovation</text>
+<text x="730" y="117" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">FAO</text>
+<text x="730" y="134" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">Innovation</text>
 <text x="780" y="115" text-anchor="start" fill="#1D3447" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">FAO Innovation</text>
 <text x="780" y="139" text-anchor="start" fill="#6E8495" font-family="Arial, Helvetica, sans-serif" font-size="16">current work</text>
 </svg>
