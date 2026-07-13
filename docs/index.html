@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sewon Kim — Career Graph</title>
+  <script type="text/javascript" src="https://unpkg.com/vis-network@9.1.9/dist/vis-network.min.js"></script>
+  <link href="https://unpkg.com/vis-network@9.1.9/dist/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
+  <style>
+    :root {
+      --bg: #f6f9fc;
+      --panel: #ffffff;
+      --line: #dbe5ef;
+      --text: #213648;
+      --muted: #6a8091;
+      --primary: #0d4d89;
+      --chip: #eef4f8;
+      --orange: #ee9b2c;
+      --purple: #7a62c5;
+      --green: #5aa06a;
+      --red: #ce5b5b;
+      --cyan: #3aa6b9;
+      --pink: #d06e97;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .topbar {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 26px 28px;
+      box-shadow: 0 10px 30px rgba(24, 66, 109, 0.04);
+      margin-bottom: 18px;
+    }
+    .eyebrow { color: var(--muted); font-size: 15px; margin-bottom: 8px; }
+    h1 { margin: 0 0 10px; font-size: clamp(30px, 4vw, 48px); line-height: 1.1; }
+    .sub { color: var(--muted); font-size: 18px; margin-bottom: 18px; }
+    .search-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .search-row input {
+      flex: 1 1 420px;
+      border: 1px solid var(--line);
+      background: #f8fbfe;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 16px;
+      color: var(--text);
+    }
+    .btn, .chip {
+      border: 1px solid var(--line);
+      background: var(--chip);
+      color: #557083;
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .search-row .btn { background: var(--primary); color: white; border-radius: 12px; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.9fr) minmax(320px, 0.9fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(24, 66, 109, 0.04);
+    }
+    .panel-head {
+      padding: 18px 20px 10px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+    #network {
+      height: 630px;
+      border-top: 1px solid #f0f4f8;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      background: linear-gradient(180deg, #fbfdff 0%, #f7fbff 100%);
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 20px 18px; }
+    .side {
+      padding: 20px;
+      position: sticky;
+      top: 24px;
+    }
+    .legend { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0; }
+    .legend-item { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .card-label { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+    .card-title { font-size: 28px; line-height: 1.2; margin: 0 0 8px; }
+    .card-type { display: inline-block; background: #ecf3f8; color: #557083; font-size: 13px; border-radius: 999px; padding: 7px 10px; margin-bottom: 14px; }
+    .card-desc { color: #456173; line-height: 1.7; font-size: 15px; }
+    .meta { margin-top: 18px; display: grid; gap: 8px; }
+    .meta div { padding: 10px 12px; background: #f8fbfe; border: 1px solid #e8eff5; border-radius: 12px; color: #355268; font-size: 14px; }
+    .links { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .links a {
+      text-decoration: none; color: var(--primary); background: #eef4fb; border-radius: 999px; padding: 10px 12px; font-size: 14px;
+    }
+    .footer-note { margin-top: 18px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .side { position: static; }
+      #network { height: 560px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="topbar">
+      <div class="eyebrow">career graph / smart search</div>
+      <h1>Sewon Kim — Knowledge Discovery Map</h1>
+      <div class="sub">A graph-first view of experience, systems, research, and technical signals. Click nodes, search terms, or drag the network.</div>
+      <div class="search-row">
+        <input id="searchInput" type="text" placeholder="Search nodes, skills, projects, outputs..." list="nodeSuggestions" />
+        <datalist id="nodeSuggestions"></datalist>
+        <button class="btn" id="searchBtn">Focus node</button>
+      </div>
+    </section>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="panel-head">Explore related categories — selected nodes reveal projects, methods, outputs, and institutions.</div>
+        <div class="chips" id="chips"></div>
+        <div id="network"></div>
+      </section>
+
+      <aside class="panel side">
+        <div class="card-label">selected node</div>
+        <h2 class="card-title" id="detailTitle">Sewon Kim</h2>
+        <div class="card-type" id="detailType">central</div>
+        <div class="card-desc" id="detailDesc">Final-year Computer Science and Engineering student building AI and data systems across international organizations, research labs, and field deployments.</div>
+
+        <div class="meta" id="detailMeta"></div>
+        <div class="links" id="detailLinks"></div>
+
+        <div class="legend">
+          <div class="legend-item"><span class="dot" style="background:#0d4d89"></span> central identity</div>
+          <div class="legend-item"><span class="dot" style="background:#5ba6d0"></span> system</div>
+          <div class="legend-item"><span class="dot" style="background:#7a62c5"></span> method</div>
+          <div class="legend-item"><span class="dot" style="background:#5aa06a"></span> output</div>
+          <div class="legend-item"><span class="dot" style="background:#ee9b2c"></span> capability</div>
+          <div class="legend-item"><span class="dot" style="background:#ce5b5b"></span> institution</div>
+        </div>
+
+        <div class="footer-note">Best used as a GitHub Pages companion to the profile README. GitHub README itself cannot run JavaScript-based graph physics.</div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const nodeData = {
+      sewon: {
+        label: 'Sewon Kim', group: 'central', value: 38,
+        desc: 'Final-year Computer Science and Engineering student building AI and data systems across international organizations, research labs, and field deployments.',
+        meta: ['Based in Rome / Jeonju', 'Focus: graph visualization, knowledge discovery, applied AI', 'Interested in durable, usable systems'],
+        links: [
+          { text: 'Portfolio', href: 'https://andimsewon.github.io' },
+          { text: 'LinkedIn', href: 'https://www.linkedin.com/in/sewon-kim' },
+          { text: 'GitHub', href: 'https://github.com/andimsewon' }
+        ]
+      },
+      atio: {
+        label: 'ATIO Knowledge Base', group: 'system', value: 28,
+        desc: 'Analyze user behavior and knowledge-discovery flows for the ATIO Knowledge Base and support UX, prompt-enrichment, and data-visualization recommendations across 5,744 records.',
+        meta: ['FAO Office of Innovation', 'Knowledge base analytics', 'Metadata quality & consistency'],
+        links: [{ text: 'FAO STI Portal', href: 'https://atiokb.fao.org/' }]
+      },
+      graphviz: {
+        label: 'Graph Visualization', group: 'capability', value: 26,
+        desc: 'Main career signal: using node-based visual systems to make complex information discoverable, navigable, and decision-ready.',
+        meta: ['Interactive graph thinking', 'Knowledge discovery UX', 'Structure → insight'],
+        links: []
+      },
+      kg: {
+        label: 'Knowledge Graphs', group: 'method', value: 22,
+        desc: 'Use semantic structures to improve retrieval quality, context linkage, and multi-hop reasoning.',
+        meta: ['Ontology-aware retrieval', 'Entity / relation thinking', 'RAG enhancement'],
+        links: []
+      },
+      ragr: {
+        label: 'KG-RAG Research', group: 'system', value: 24,
+        desc: 'Built knowledge graph-enhanced RAG architectures in PyTorch and LangChain and ran ablation studies on retrieval accuracy, latency, and context coherence.',
+        meta: ['PyTorch + LangChain', 'Multi-hop QA', 'Ablation studies'],
+        links: []
+      },
+      cv: {
+        label: 'Computer Vision', group: 'capability', value: 22,
+        desc: 'Applied vision systems focused on practical inspection and reliable deployment, not just leaderboard performance.',
+        meta: ['Detection systems', 'Applied inspection', 'OpenCV + DETR'],
+        links: []
+      },
+      heritage: {
+        label: 'Heritage Inspection', group: 'system', value: 25,
+        desc: 'Led a DETR-based cultural-heritage damage-inspection system, reaching F1 = 0.89 and resulting in operational use, a registered software copyright, and a patent filing.',
+        meta: ['DETR-based system', 'Operational use', 'Patent + copyright'],
+        links: []
+      },
+      waggle: {
+        label: 'WaggleNet', group: 'system', value: 22,
+        desc: 'Contributed to the design, deployment, and evaluation of a LoRa-MQTT beehive monitoring system tested in the field.',
+        meta: ['100% packet delivery at 110 m', '3.8 s mean latency', '95%+ uptime'],
+        links: []
+      },
+      iot: {
+        label: 'IoT Systems', group: 'capability', value: 20,
+        desc: 'Build systems that survive field constraints, connectivity limits, and deployment reality.',
+        meta: ['LoRa', 'MQTT', 'Sensors & monitoring'],
+        links: []
+      },
+      ux: {
+        label: 'UX Analytics', group: 'capability', value: 20,
+        desc: 'Approach data as experience: behavior flows, discoverability, metadata quality, and visual structure all shape usability.',
+        meta: ['Behavior analysis', 'Workflow understanding', 'Decision support'],
+        links: []
+      },
+      fao: {
+        label: 'FAO Office of Innovation', group: 'institution', value: 18,
+        desc: 'Current host organization, where work focuses on agricultural technology and innovation knowledge discovery.',
+        meta: ['Innovation Accelerator Intern', 'Rome, Italy', 'Multicultural cross-functional team'],
+        links: []
+      },
+      jnu: {
+        label: 'Jeonbuk National University', group: 'institution', value: 18,
+        desc: 'B.S. in Computer Science and Engineering; full-tuition undergraduate merit fellowship; admitted with highest distinction.',
+        meta: ['GPA 4.09/4.5', 'Expected Aug 2026', 'Top-ranked entrant'],
+        links: []
+      },
+      purdue: {
+        label: 'Purdue University', group: 'institution', value: 18,
+        desc: 'International Research Scholar in the IITP-funded Korean Software Square Summer Program.',
+        meta: ['West Lafayette, IN', 'Summer 2025', 'Field system collaboration'],
+        links: []
+      },
+      publication: {
+        label: 'arXiv Preprint', group: 'output', value: 16,
+        desc: 'Co-authored the WaggleNet preprint describing a low-cost LoRa and MQTT-based beehive monitoring system.',
+        meta: ['WaggleNet paper', 'Research output', 'Collaborative authorship'],
+        links: []
+      },
+      patent: {
+        label: 'Patent Filing', group: 'output', value: 16,
+        desc: 'Jointly filed patent related to integrated survey and damage-diagnosis workflow for cultural-heritage structures.',
+        meta: ['Pending', 'Applied system impact', 'Institutional collaboration'],
+        links: []
+      },
+      copyright: {
+        label: 'Software Copyright', group: 'output', value: 16,
+        desc: 'Registered software copyright for the integrated survey registration and damage diagnosis management app.',
+        meta: ['Korea Copyright Commission', '2025', 'Operational artifact'],
+        links: []
+      },
+      prompt: {
+        label: 'Prompt Evaluation', group: 'method', value: 18,
+        desc: 'Evaluate and refine AI-enrichment prompts used to classify records and improve metadata quality and consistency.',
+        meta: ['LLM evaluation', 'Classification quality', 'Knowledge enrichment'],
+        links: []
+      },
+      nlp: {
+        label: 'NLP', group: 'capability', value: 18,
+        desc: 'Natural language understanding, retrieval pipelines, prompt evaluation, and reasoning-oriented system design.',
+        meta: ['Language systems', 'Multi-hop reasoning', 'Evaluation mindset'],
+        links: []
+      }
+    };
+
+    const edges = [
+      ['sewon','atio'],['sewon','graphviz'],['sewon','ragr'],['sewon','heritage'],['sewon','waggle'],['sewon','fao'],['sewon','jnu'],['sewon','purdue'],
+      ['atio','ux'],['atio','prompt'],['atio','graphviz'],['atio','kg'],['ragr','kg'],['ragr','nlp'],['heritage','cv'],['waggle','iot'],
+      ['heritage','patent'],['heritage','copyright'],['waggle','publication'],['graphviz','ux'],['graphviz','kg'],['graphviz','atio'],['graphviz','ragr'],
+      ['prompt','nlp'],['fao','atio'],['jnu','ragr'],['jnu','heritage'],['purdue','waggle']
+    ];
+
+    const groupStyle = {
+      central: { color: '#0d4d89', border: '#0d4d89', font: { color: '#fff', face: 'Inter', size: 20 }, shape: 'dot' },
+      system: { color: '#5ba6d0', border: '#5ba6d0', font: { color: '#fff', face: 'Inter', size: 15 }, shape: 'dot' },
+      capability: { color: '#ee9b2c', border: '#ee9b2c', font: { color: '#fff', face: 'Inter', size: 14 }, shape: 'dot' },
+      method: { color: '#7a62c5', border: '#7a62c5', font: { color: '#fff', face: 'Inter', size: 14 }, shape: 'dot' },
+      institution: { color: '#ce5b5b', border: '#ce5b5b', font: { color: '#fff', face: 'Inter', size: 14 }, shape: 'dot' },
+      output: { color: '#5aa06a', border: '#5aa06a', font: { color: '#fff', face: 'Inter', size: 14 }, shape: 'dot' }
+    };
+
+    const nodes = Object.entries(nodeData).map(([id, d]) => ({
+      id,
+      label: d.label,
+      group: d.group,
+      value: d.value,
+      title: d.desc,
+      ...groupStyle[d.group]
+    }));
+
+    const visEdges = edges.map(([from, to]) => ({ from, to, color: { color: '#bfd0df', highlight: '#0d4d89' }, width: 1.6, smooth: { type: 'dynamic' } }));
+
+    const network = new vis.Network(
+      document.getElementById('network'),
+      { nodes: new vis.DataSet(nodes), edges: new vis.DataSet(visEdges) },
+      {
+        physics: {
+          enabled: true,
+          stabilization: { iterations: 180 },
+          forceAtlas2Based: { gravitationalConstant: -70, springLength: 160, springConstant: 0.03, damping: 0.6 },
+          solver: 'forceAtlas2Based'
+        },
+        interaction: {
+          hover: true,
+          tooltipDelay: 120,
+          multiselect: false,
+          navigationButtons: true,
+          keyboard: true
+        },
+        nodes: { scaling: { min: 18, max: 40 }, borderWidth: 0, shadow: { enabled: true, size: 14, x: 0, y: 8, color: 'rgba(15, 56, 97, 0.12)' } },
+        edges: { selectionWidth: 2.5, hoverWidth: 2.2 },
+        layout: { improvedLayout: true }
+      }
+    );
+
+    const detailTitle = document.getElementById('detailTitle');
+    const detailType = document.getElementById('detailType');
+    const detailDesc = document.getElementById('detailDesc');
+    const detailMeta = document.getElementById('detailMeta');
+    const detailLinks = document.getElementById('detailLinks');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const chipsWrap = document.getElementById('chips');
+    const datalist = document.getElementById('nodeSuggestions');
+
+    function renderDetails(id) {
+      const d = nodeData[id];
+      if (!d) return;
+      detailTitle.textContent = d.label;
+      detailType.textContent = d.group;
+      detailDesc.textContent = d.desc;
+      detailMeta.innerHTML = '';
+      detailLinks.innerHTML = '';
+      (d.meta || []).forEach(item => {
+        const div = document.createElement('div');
+        div.textContent = item;
+        detailMeta.appendChild(div);
+      });
+      (d.links || []).forEach(item => {
+        const a = document.createElement('a');
+        a.href = item.href;
+        a.textContent = item.text;
+        a.target = '_blank';
+        a.rel = 'noreferrer noopener';
+        detailLinks.appendChild(a);
+      });
+    }
+
+    network.on('click', params => {
+      if (params.nodes.length) renderDetails(params.nodes[0]);
+    });
+    network.on('hoverNode', params => {
+      document.body.style.cursor = 'pointer';
+    });
+    network.on('blurNode', params => {
+      document.body.style.cursor = 'default';
+    });
+
+    function focusNodeByLabel(label) {
+      const entry = Object.entries(nodeData).find(([, d]) => d.label.toLowerCase() === label.toLowerCase().trim());
+      if (!entry) return;
+      const [id] = entry;
+      network.selectNodes([id]);
+      network.focus(id, { scale: 1.1, animation: { duration: 700, easingFunction: 'easeInOutQuad' } });
+      renderDetails(id);
+    }
+
+    searchBtn.addEventListener('click', () => focusNodeByLabel(searchInput.value));
+    searchInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') focusNodeByLabel(searchInput.value);
+    });
+
+    Object.values(nodeData).forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d.label;
+      datalist.appendChild(opt);
+    });
+
+    const chipConfig = [
+      { key: 'all', text: 'All nodes' },
+      { key: 'system', text: 'Systems' },
+      { key: 'capability', text: 'Capabilities' },
+      { key: 'method', text: 'Methods' },
+      { key: 'institution', text: 'Institutions' },
+      { key: 'output', text: 'Outputs' }
+    ];
+
+    let activeGroup = 'all';
+    chipConfig.forEach(({ key, text }) => {
+      const btn = document.createElement('button');
+      btn.className = 'chip' + (key === 'all' ? ' active' : '');
+      btn.textContent = text;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.chip').forEach(el => el.classList.remove('active'));
+        btn.classList.add('active');
+        activeGroup = key;
+        const update = nodes.map(n => {
+          if (key === 'all' || n.group === key || n.id === 'sewon') {
+            return { id: n.id, hidden: false, opacity: 1 };
+          }
+          return { id: n.id, hidden: false, opacity: 0.18 };
+        });
+        network.body.data.nodes.update(update);
+      });
+      chipsWrap.appendChild(btn);
+    });
+
+    renderDetails('sewon');
+  </script>
+</body>
+</html>
