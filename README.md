@@ -8,7 +8,7 @@
 Currently working on **knowledge discovery, AI enrichment, and graph-based information navigation** at the **FAO Office of Innovation**.
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-andimsewon.github.io-1D6FB8?style=for-the-badge)](https://andimsewon.github.io)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-sewon--kim-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sewon-kim)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-sewon--kim-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sewon-kim-742a492a6/)
 [![Interactive Graph](https://img.shields.io/badge/Interactive%20Career%20Graph-Open%20Live%20View-225D8F?style=for-the-badge)](https://andimsewon.github.io/andimsewon/)
 
 </div>
@@ -17,7 +17,7 @@ Currently working on **knowledge discovery, AI enrichment, and graph-based infor
 
 ## Main signal
 
-> **I want my core professional identity to be this:** designing **graph-based visual systems** that make complex knowledge easier to explore, connect, and act on.
+> **I design graph-based visual systems that make complex knowledge easier to explore, connect, and act on.**
 
 That means combining:
 - **knowledge discovery**
@@ -39,12 +39,12 @@ That means combining:
 <div align="center">
 
 **Click the image or badge above to open the live interactive graph.**  
-The interactive version supports **dragging, hover, node selection, search, and focus movement**.
+The interactive version supports **dragging, hover, node selection, search, focus movement, and portfolio-weighted signal encoding**.
 
 </div>
 
 > **Why this is hosted separately:** GitHub Profile README does **not** allow JavaScript-driven interaction inside the README itself.  
-> So the best architecture is: **README = strong visual preview** + **GitHub Pages = fully interactive graph**.
+> So the best architecture is: **README = clean visual preview** + **GitHub Pages = fully interactive graph**.
 
 ---
 
@@ -61,8 +61,8 @@ The interactive version supports **dragging, hover, node selection, search, and 
 - **KG-RAG Research**  
   Knowledge graph-enhanced retrieval, multi-hop QA, ablation studies
 
-- **Heritage Inspection System**  
-  DETR-based damage inspection with real operational impact
+- **Heritage Damage Detection**  
+  DETR/CLIP inspection system with operational impact and IP outcomes
 
 - **WaggleNet**  
   LoRa-MQTT beehive monitoring validated in field deployment
@@ -70,15 +70,16 @@ The interactive version supports **dragging, hover, node selection, search, and 
 </td>
 <td width="50%" valign="top">
 
-### Capabilities
+### Core capabilities
 - **Graph Visualization**
+- **Knowledge Discovery**
 - **Knowledge Graphs**
-- **RAG / NLP**
+- **Retrieval / RAG**
 - **Computer Vision**
-- **UX Analytics**
-- **IoT Systems**
+- **UX & Data Visualization**
+- **Data & IoT Pipelines**
 
-### Signals
+### Evidence signals
 - arXiv preprint
 - patent filing
 - software copyright
@@ -144,12 +145,15 @@ The interactive version supports **dragging, hover, node selection, search, and 
 
 ---
 
-## GitHub snapshot
+## Signal board
 
-<div align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=andimsewon&show_icons=true&theme=default&hide_border=true" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=andimsewon&layout=compact&theme=default&hide_border=true" />
-</div>
+| Signal | Evidence |
+|---|---|
+| **Graph-first AI systems** | ATIO Knowledge Base, KG-RAG, graph visualization map |
+| **Retrieval & knowledge systems** | Knowledge Graphs, RAG, multi-hop QA, PyTorch, LangChain |
+| **Applied computer vision** | DETR/CLIP damage detection, F1 0.89, deployed heritage inspection system |
+| **Field-tested data systems** | WaggleNet, LoRa, MQTT, 100% PDR at 110 m, 95%+ uptime |
+| **Research-to-output mindset** | arXiv preprint, patent filing, software copyright |
 
 ---
 
